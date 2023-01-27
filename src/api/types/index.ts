@@ -27,3 +27,27 @@ export type Cart = {
     }
   ];
 };
+
+export type User = {
+  id?: number;
+  address: Address;
+ 
+  email: string;
+  username: string;
+  password: string;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  phone: string;
+};
+ type Address = {
+  geolocation: {
+    long: string;
+    lat: string;
+  };
+  city: string;
+  street: string;
+  number: number;
+  zipcode: string;
+}

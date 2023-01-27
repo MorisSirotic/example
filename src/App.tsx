@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { CartService } from "./api/service/CartService";
 import { ProductService } from "./api/service/ProductService";
-import { Cart, Product } from "./api/types";
+import { UserService } from "./api/service/UserService";
+import { Cart, Product, User } from "./api/types";
 import "./App.css";
 
 function App() {
@@ -21,6 +22,12 @@ function App() {
 
   const [userCart, setUserCart] = useState<Cart[]>([]);
 
+  //USER
+
+  const [users, setUsers] = useState<User[]>([]);
+
+  const [user, setUser] = useState<User>();
+
   useEffect(() => {
     ProductService.getAll({ limit: 2 }).then((res) => {
       setProducts(res.data);
@@ -39,7 +46,9 @@ function App() {
   //CART USE EFFECT
 
   useEffect(() => {
-    CartService.getAll({date:{startDate:"2020-03-10",endDate:"2020-10-10"}}).then((res) => {
+    CartService.getAll({
+      date: { startDate: "2020-03-10", endDate: "2020-10-10" },
+    }).then((res) => {
       setCarts(res.data);
     });
 
@@ -51,6 +60,18 @@ function App() {
       setCart(res.data);
     });
   }, []);
+
+  //USER USE EFFECT
+
+  useEffect(() => {
+    UserService.getAll({ limit: 2 }).then((res) => {
+      setUsers(res.data);
+    });
+
+    UserService.getOne(1).then((res) => {
+      setUser(res.data);
+    });
+  });
 
   return (
     <div className="App">
@@ -189,6 +210,86 @@ function App() {
           }}
         >
           DELETE CART
+        </button>
+      </div>
+
+      <div>
+        --------------------------------------USER-----------------------------------------
+        {users.map((user, indx) => {
+            return (
+              <div key={indx}>
+                <p>{user.id}</p>
+                <p>{user.email}</p>
+              </div>
+            );
+          })}
+
+        {user && (
+            <p>
+              {user.id} {user.email}
+            </p>
+          )}
+        <button
+          onClick={() => {
+            UserService.createOne({
+              email:'John@gmail.com',
+              username:'johnd',
+              password:'m38rmF$',
+              name:{
+                  firstName:'John',
+                  lastName:'Doe'
+              },
+              address:{
+                  city:'kilcoole',
+                  street:'7835 new road',
+                  number:3,
+                  zipcode:'12926-3874',
+                  geolocation:{
+                      lat:'-37.3159',
+                      long:'81.1496'
+                  }
+              },
+              phone:'1-570-236-7033'
+          }).then((res) => console.log(res));
+          }}
+        >
+          POST USER
+        </button>
+        <button
+          onClick={() => {
+            UserService.updateOne({
+              id: 1,
+              user: {
+                email: "John@gmail.com",
+                username: "johnd",
+                password: "m38rmF$",
+                name: {
+                  firstName: "John",
+                  lastName: "Doe",
+                },
+                address: {
+                  city: "kilcoole",
+                  street: "7835 new road",
+                  number: 3,
+                  zipcode: "12926-3874",
+                  geolocation: {
+                    lat: "-37.3159",
+                    long: "81.1496",
+                  },
+                },
+                phone: "1-570-236-7033",
+              },
+            }).then((res) => console.log(res));
+          }}
+        >
+          PUT USER
+        </button>
+        <button
+          onClick={() => {
+            UserService.deleteOne(1).then((res) => console.log(res));
+          }}
+        >
+          DELETE USER
         </button>
       </div>
     </div>

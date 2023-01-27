@@ -54,7 +54,7 @@ const getAllByUser = async (id: number): Promise<AxiosResponse<Cart[]>> => {
  *
  * @description TESTED <-&&-> WORKS
  *
- * @returns Product, but nothing is updated on the backend
+ * @returns Cart, but nothing is updated on the backend
  *
  *
  *
@@ -71,7 +71,7 @@ const addProduct = async (info: {
  *
  * @description TESTED <-&&-> WORKS
  *
- * @returns Product, but nothing is updated on the backend
+ * @returns Cart, but nothing is updated on the backend
  *
  *
  *
@@ -94,7 +94,7 @@ const updateProduct = async (
  *
  * @description TESTED <-&&-> WORKS
  *
- * @returns Product, but nothing is updated on the backend
+ * @returns Cart, but nothing is updated on the backend
  *
  *
  *
