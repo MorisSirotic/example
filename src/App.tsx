@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { CartService } from "./api/service/CartService";
 import { ProductService } from "./api/service/ProductService";
-import { Product } from "./api/types";
+import { Cart, Product } from "./api/types";
 import "./App.css";
 
 function App() {
@@ -11,6 +12,14 @@ function App() {
   const [categories, setCategories] = useState<any[]>([]);
 
   const [catProducts, setCatProducts] = useState<Product[]>([]);
+
+  //CART
+
+  const [carts, setCarts] = useState<Cart[]>([]);
+
+  const [cart, setCart] = useState<Cart>();
+
+  const [userCart, setUserCart] = useState<Cart[]>([]);
 
   useEffect(() => {
     ProductService.getAll({ limit: 2 }).then((res) => {
@@ -25,6 +34,22 @@ function App() {
       limit: 20,
       sort: "desc",
     }).then((res) => setCatProducts(res.data));
+  }, []);
+
+  //CART USE EFFECT
+
+  useEffect(() => {
+    CartService.getAll({date:{startDate:"2020-03-10",endDate:"2020-10-10"}}).then((res) => {
+      setCarts(res.data);
+    });
+
+    CartService.getAllByUser(2).then((res) => {
+      setUserCart(res.data);
+    });
+
+    CartService.getOne(2).then((res) => {
+      setCart(res.data);
+    });
   }, []);
 
   return (
@@ -83,18 +108,88 @@ function App() {
         {categories.map((cat, indx) => {
           return <p key={indx}>{cat}</p>;
         })}
+        <div>
+          -------------------------------CATEGORY-PRODUCTS-----------------------------------------
+          {catProducts.map((cat, indx) => {
+            return (
+              <div key={indx}>
+                <p>{cat.title}</p>
+                <p>{cat.price}</p>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       <div>
-        -------------------------------CATEGORY-PRODUCTS-----------------------------------------
-        {catProducts.map((cat, indx) => {
-          return (
-            <div key={indx}>
-              <p>{cat.title}</p>
-              <p>{cat.price}</p>
-            </div>
-          );
-        })}
+        --------------------------------------CART-----------------------------------------
+        <div>
+          <p>---------USER-CART(s)--------------</p>
+          {userCart.map((cat, indx) => {
+            return (
+              <div key={indx}>
+                <p>{cat.id}</p>
+                <p>{cat.date.toString()}</p>
+              </div>
+            );
+          })}
+
+          <p>-----------------------</p>
+        </div>
+        <div>
+          <p>---------ALL-CART(s)--------------</p>
+
+          {carts.map((cat, indx) => {
+            return (
+              <div key={indx}>
+                <p>{cat.id}</p>
+                <p>{cat.date.toString()}</p>
+              </div>
+            );
+          })}
+          <p>-----------------------</p>
+        </div>
+        <div>
+          <p>---------ONE-CART(s)--------------</p>
+          {cart && (
+            <p>
+              {cart.id} {cart.date.toString()}
+            </p>
+          )}
+          <p>-----------------------</p>
+        </div>
+        <button
+          onClick={() => {
+            CartService.addProduct({
+              userId: 5,
+              date: "2020-02-03",
+              products: [{ productId: 5, quantity: 1 }],
+            }).then((res) => console.log(res));
+          }}
+        >
+          POST CART
+        </button>
+        <button
+          onClick={() => {
+            CartService.updateProduct(7, {
+              userId: 5,
+              date: new Date(),
+              products: [
+                { productId: 5, quantity: 1 },
+                { productId: 2, quantity: 3 },
+              ],
+            }).then((res) => console.log(res));
+          }}
+        >
+          PUT CART
+        </button>
+        <button
+          onClick={() => {
+            CartService.deleteOne("1").then((res) => console.log(res));
+          }}
+        >
+          DELETE CART
+        </button>
       </div>
     </div>
   );
