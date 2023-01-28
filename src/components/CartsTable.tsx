@@ -11,7 +11,7 @@ export const CartsTable = () => {
         <tr>
           <th>#</th>
           <th>User ID</th>
-          <th>Cart Stugg</th>
+          <th>Date</th>
         </tr>
       </thead>
       <tbody>

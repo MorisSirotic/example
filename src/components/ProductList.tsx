@@ -10,7 +10,7 @@ export const ProductList = () => {
       <Row>
         {products.map((prod, indx) => {
           return (
-            <Col key={indx}>
+            <Col style={{display:"flex",justifyContent:"center"}} key={indx}>
               <ProductCard product={prod} />
             </Col>
           );
