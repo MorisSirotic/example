@@ -1,36 +1,30 @@
-import Table from 'react-bootstrap/Table';
+import Table from "react-bootstrap/Table";
+import { useLoaderData } from "react-router-dom";
+import { ICart } from "../api/types";
 
-export const  CartsTable =() => {
+export const CartsTable = () => {
+  const carts = useLoaderData() as ICart[];
+
   return (
-    <Table striped bordered hover size="sm">
+    <Table striped bordered hover size="l">
       <thead>
         <tr>
           <th>#</th>
-          <th>Cart Something</th>
+          <th>User ID</th>
           <th>Cart Stugg</th>
-          <th>Username</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td colSpan={2}>Larry the Bird</td>
-          <td>@twitter</td>
-        </tr>
+        {carts.map((cart, indx) => {
+          return (
+            <tr key={indx}>
+              <td>{cart.id}</td>
+              <td>{cart.userId}</td>
+              <td>{cart.date.replace("T00:00:02.000Z", "")}</td>
+            </tr>
+          );
+        })}
       </tbody>
     </Table>
   );
-}
-
+};

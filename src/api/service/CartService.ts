@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { MyAxios } from "../axios";
-import { Cart, Product } from "../types";
+import { ICart, IProduct } from "../types";
 
 type StandardParams = {
   sort?: "asc" | "desc";
@@ -19,8 +19,8 @@ type ProductsArray = {
 };
 const getAll = async (
   params?: StandardParams
-): Promise<AxiosResponse<Cart[]>> => {
-  return MyAxios.get<Cart[]>("/carts", {
+): Promise<AxiosResponse<ICart[]>> => {
+  return MyAxios.get<ICart[]>("/carts", {
     params: {
       limit: params?.limit,
       sort: params?.sort,
@@ -36,8 +36,8 @@ const getAll = async (
  *
  *
  */
-const getOne = async (id: number): Promise<AxiosResponse<Cart>> => {
-  return await MyAxios.get<Cart>(`/carts/${id}`).then((res) => res);
+const getOne = async (id: string): Promise<AxiosResponse<ICart>> => {
+  return await MyAxios.get<ICart>(`/carts/${id}`).then((res) => res);
 };
 /**
  *
@@ -46,8 +46,8 @@ const getOne = async (id: number): Promise<AxiosResponse<Cart>> => {
  *
  *
  */
-const getAllByUser = async (id: number): Promise<AxiosResponse<Cart[]>> => {
-  return await MyAxios.get<Cart[]>(`/carts/user/${id}`).then((res) => res);
+const getAllByUser = async (id: number): Promise<AxiosResponse<ICart[]>> => {
+  return await MyAxios.get<ICart[]>(`/carts/user/${id}`).then((res) => res);
 };
 /**
  *
@@ -83,8 +83,8 @@ const updateProduct = async (
     date: Date;
     products: ProductsArray[];
   }
-): Promise<AxiosResponse<Product>> => {
-  return await MyAxios.put<Product>(`/carts/${cartId}`, info).then(
+): Promise<AxiosResponse<IProduct>> => {
+  return await MyAxios.put<IProduct>(`/carts/${cartId}`, info).then(
     (res) => res
   );
 };

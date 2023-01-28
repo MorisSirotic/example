@@ -3,7 +3,7 @@
  *
  * @description https://fakestoreapi.com/docs
  */
-export type Product = {
+export type IProduct = {
   id?: number;
   title: string;
   price: number;
@@ -16,10 +16,10 @@ export type Product = {
   };
 };
 
-export type Cart = {
+export type ICart = {
   id: number;
   userId: number;
-  date: Date;
+  date: string;
   products: [
     {
       productId: number;
@@ -28,20 +28,20 @@ export type Cart = {
   ];
 };
 
-export type User = {
+export type IUser = {
   id?: number;
   address: Address;
- 
+
   email: string;
   username: string;
   password: string;
   name: {
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
   };
   phone: string;
 };
- type Address = {
+type Address = {
   geolocation: {
     long: string;
     lat: string;
@@ -50,4 +50,4 @@ export type User = {
   street: string;
   number: number;
   zipcode: string;
-}
+};

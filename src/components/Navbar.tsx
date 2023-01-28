@@ -1,6 +1,4 @@
-import { Navbar, Container } from "react-bootstrap";
-import { FaHamburger } from "react-icons/fa";
- 
+import { Container, Navbar } from "react-bootstrap";
 
 export const ResponsiveNavbar = () => {
   return (

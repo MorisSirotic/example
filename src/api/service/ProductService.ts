@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { MyAxios } from "../axios";
-import { Product } from "../types";
+import { IProduct } from "../types";
 
 type StandardParams = {
   sort?: "asc" | "desc";
@@ -8,9 +8,9 @@ type StandardParams = {
 };
 
 const getAll = async (
-  params: StandardParams
-): Promise<AxiosResponse<Product[]>> => {
-  return MyAxios.get<Product[]>("/products", {
+  params?: StandardParams
+): Promise<AxiosResponse<IProduct[]>> => {
+  return MyAxios.get<IProduct[]>("/products", {
     params: {
       limit: params?.limit,
       sort: params?.sort,
@@ -24,8 +24,8 @@ const getAll = async (
  *
  *
  */
-const getOne = async (id: string): Promise<AxiosResponse<Product>> => {
-  return await MyAxios.get<Product>(`/products/${id}`).then((res) => res);
+const getOne = async (id: string): Promise<AxiosResponse<IProduct>> => {
+  return await MyAxios.get<IProduct>(`/products/${id}`).then((res) => res);
 };
 
 /**
@@ -38,8 +38,10 @@ const getOne = async (id: string): Promise<AxiosResponse<Product>> => {
  *
  *
  */
-const createOne = async (product: Product): Promise<AxiosResponse<Product>> => {
-  return await MyAxios.post<Product>(`/products/`, product).then((res) => res);
+const createOne = async (
+  product: IProduct
+): Promise<AxiosResponse<IProduct>> => {
+  return await MyAxios.post<IProduct>(`/products/`, product).then((res) => res);
 };
 
 /**
@@ -53,12 +55,12 @@ const createOne = async (product: Product): Promise<AxiosResponse<Product>> => {
  *
  */
 const updateOne = async (params: {
-  product: Product;
+  product: IProduct;
   id: string;
-}): Promise<AxiosResponse<Product>> => {
+}): Promise<AxiosResponse<IProduct>> => {
   const { id, product } = params;
 
-  return await MyAxios.put<Product>(`/products/${id}`, product).then(
+  return await MyAxios.put<IProduct>(`/products/${id}`, product).then(
     (res) => res
   );
 };
@@ -72,12 +74,12 @@ const updateOne = async (params: {
  *
  *
  */
-const deleteOne = async (id: string): Promise<AxiosResponse<Product>> => {
-  return await MyAxios.delete<Product>(`/products/${id}`).then((res) => res);
+const deleteOne = async (id: string): Promise<AxiosResponse<IProduct>> => {
+  return await MyAxios.delete<IProduct>(`/products/${id}`).then((res) => res);
 };
 
 const getAllCategories = async (): Promise<AxiosResponse<unknown[]>> => {
-  return MyAxios.get<Product[]>("/products/categories").then((res) => res);
+  return MyAxios.get<IProduct[]>("/products/categories").then((res) => res);
 };
 /**
  *
@@ -89,8 +91,8 @@ const getAllCategories = async (): Promise<AxiosResponse<unknown[]>> => {
 const getAllByCategory = async (
   slug: string,
   params?: StandardParams
-): Promise<AxiosResponse<Product[]>> => {
-  return await MyAxios.get<Product[]>(`/products/category/${slug}`, {
+): Promise<AxiosResponse<IProduct[]>> => {
+  return await MyAxios.get<IProduct[]>(`/products/category/${slug}`, {
     params: {
       limit: params?.limit,
       sort: params?.sort,

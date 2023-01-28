@@ -1,20 +1,17 @@
-import { Button } from "react-bootstrap";
-import { CartsTable } from "./components/CartsTable";
-import { Footer } from "./components/Footer";
-import { ResponsiveNavbar } from "./components/Navbar";
-import { ProductList } from "./components/ProductList";
-import { UsersTable } from "./components/UsersTable";
-
 function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
-      <ResponsiveNavbar />
-      <ProductList/>
-<CartsTable/>
 
-<UsersTable/>
 
-      <Footer />
+<div>Root</div>
+
+      {/* <ResponsiveNavbar />
+      <ProductList />
+      <CartsTable />
+
+      <UsersTable />
+
+      <Footer /> */}
 
       {/* <Button variant="primary">Primary</Button>{' '}
       <Button variant="secondary">Secondary</Button>{' '}

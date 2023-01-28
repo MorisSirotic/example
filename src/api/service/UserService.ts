@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { MyAxios } from "../axios";
-import { User } from "../types";
+import { IUser } from "../types";
 
 type StandardParams = {
   sort?: "asc" | "desc";
@@ -8,9 +8,9 @@ type StandardParams = {
 };
 
 const getAll = async (
-  params: StandardParams
-): Promise<AxiosResponse<User[]>> => {
-  return MyAxios.get<User[]>("/users", {
+  params?: StandardParams
+): Promise<AxiosResponse<IUser[]>> => {
+  return MyAxios.get<IUser[]>("/users", {
     params: {
       limit: params?.limit,
       sort: params?.sort,
@@ -24,8 +24,8 @@ const getAll = async (
  *
  *
  */
-const getOne = async (id: number): Promise<AxiosResponse<User>> => {
-  return await MyAxios.get<User>(`/users/${id}`).then((res) => res);
+const getOne = async (id: number): Promise<AxiosResponse<IUser>> => {
+  return await MyAxios.get<IUser>(`/users/${id}`).then((res) => res);
 };
 
 /**
@@ -38,8 +38,8 @@ const getOne = async (id: number): Promise<AxiosResponse<User>> => {
  *
  *
  */
-const createOne = async (user: User): Promise<AxiosResponse<User>> => {
-  return await MyAxios.post<User>(`/products/`, user).then((res) => res);
+const createOne = async (user: IUser): Promise<AxiosResponse<IUser>> => {
+  return await MyAxios.post<IUser>(`/products/`, user).then((res) => res);
 };
 
 /**
@@ -53,12 +53,12 @@ const createOne = async (user: User): Promise<AxiosResponse<User>> => {
  *
  */
 const updateOne = async (params: {
-  user: User;
+  user: IUser;
   id: number;
-}): Promise<AxiosResponse<User>> => {
+}): Promise<AxiosResponse<IUser>> => {
   const { id, user } = params;
 
-  return await MyAxios.put<User>(`/users/${id}`, user).then((res) => res);
+  return await MyAxios.put<IUser>(`/users/${id}`, user).then((res) => res);
 };
 /**
  *
@@ -70,8 +70,8 @@ const updateOne = async (params: {
  *
  *
  */
-const deleteOne = async (id: number): Promise<AxiosResponse<User>> => {
-  return await MyAxios.delete<User>(`/users/${id}`).then((res) => res);
+const deleteOne = async (id: number): Promise<AxiosResponse<IUser>> => {
+  return await MyAxios.delete<IUser>(`/users/${id}`).then((res) => res);
 };
 
 export const UserService = { getAll, getOne, createOne, updateOne, deleteOne };
