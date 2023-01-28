@@ -6,7 +6,7 @@ export const Product = () => {
   const product = useLoaderData() as IProduct;
 
   return (
-    <Card style={{ maxWidth: "80%", margin: "18px"}}>
+    <Card style={{ maxWidth: "720px", margin: "18px"}}>
       <Card.Img variant="top" src={product.image} />
       <Card.Body>
         <Card.Title>{product.title}</Card.Title>
